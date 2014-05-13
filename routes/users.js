@@ -47,6 +47,9 @@ app.post('/login',
 //   acheive the same functionality.
 exports.postlogin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
+		console.log('err', err);
+		console.log('user', user);
+		console.log('info', info);
 		if (err) { 
 			console.log('err');
 			return next(err);
