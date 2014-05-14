@@ -9,3 +9,9 @@ block content
 	h1= title
 	p Welcome to #{title}
 
+	if user
+		p id: #{user._id}
+		p user: #{user.username}
+		p email: #{user.email}
+		p admin: #{user.admin}
+

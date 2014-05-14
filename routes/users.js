@@ -1,24 +1,10 @@
-/* var express = require('express');
-var router = express.Router();
-
-/* GET users listing. * /
-router.get('/', function(req, res) {
-  res.send('respond with a resource');
-});
-
-module.exports = router; */
-
-/* User Router */
 var passport = require('passport');
 
 var account = function(req, res) {
-	console.log('account');
 	res.render('account', { user: req.user });
 };
 
 var getlogin = function(req, res) {
-	console.log('getLogin');
-	console.log('...req.session', req.session);
 	//res.render('login', { user: req.user });
 	res.render('login', { user: req.user, message: req.session.messages });
 };
@@ -26,22 +12,6 @@ var getlogin = function(req, res) {
 var admin = function(req, res) {
 	res.send('access granted admin!');
 };
-
-// POST /login
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-//
-//   curl -v -d "username=bob&password=secret" http://127.0.0.1:3000/login
-//   
-/***** This version has a problem with flash messages
-app.post('/login', 
-  passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
-  function(req, res) {
-    res.redirect('/');
-  });
-*/
   
 // POST /login
 //   This is an alternative implementation that uses a custom callback to
@@ -49,14 +19,10 @@ app.post('/login',
 var postlogin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
 		if (err) { 
-			console.log('err');
 			return next(err);
 		}
 
-		console.log('user', user);
-
 		if (!user) {
-			console.log('!user');
 			req.session.messages = [info.message];
 			//return res.redirect('/login');
 			return res.render('login', { user: req.user, message: req.session.messages });
@@ -66,9 +32,8 @@ var postlogin = function(req, res, next) {
 			if (err) { 
 				return next(err); 
 			}
-			console.log('logged in', user);
-			console.log('req', req);
-			return res.redirect('/#' + user.username);
+			//return res.render('index', { user: user });
+			return res.redirect('/#' + user._id);
 		});
 	})(req, res, next);
 };

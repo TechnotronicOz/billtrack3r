@@ -4,13 +4,15 @@ var express = require('express'),
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	pass.ensureAuthenticated(req, res, test);
+	pass.ensureAuthenticated(req, res, checkUserState);
 	//res.render('index', { title: 'Express' });
 });
 
-function test(req, res) {
-	console.log('test', arguments);
-	res.render('index', { title: 'Express' });
+function checkUserState(req, res) {
+	if (req.user) {
+		return res.render('index', { title: 'BillTrack3r', user: req.user });
+	}
+	return res.redirect('/login');
 }
 
 module.exports = router;
