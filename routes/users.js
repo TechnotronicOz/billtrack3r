@@ -11,18 +11,19 @@ module.exports = router; */
 /* User Router */
 var passport = require('passport');
 
-exports.account = function(req, res) {
+var account = function(req, res) {
 	console.log('account');
 	res.render('account', { user: req.user });
 };
 
-exports.getlogin = function(req, res) {
+var getlogin = function(req, res) {
 	console.log('getLogin');
-	console.log('req.session', req.session);
-	res.render('login', { user: req.user });
+	console.log('...req.session', req.session);
+	//res.render('login', { user: req.user });
+	res.render('login', { user: req.user, message: req.session.messages });
 };
 
-exports.admin = function(req, res) {
+var admin = function(req, res) {
 	res.send('access granted admin!');
 };
 
@@ -45,33 +46,42 @@ app.post('/login',
 // POST /login
 //   This is an alternative implementation that uses a custom callback to
 //   acheive the same functionality.
-exports.postlogin = function(req, res, next) {
+var postlogin = function(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
-		console.log('err', err);
-		console.log('user', user);
-		console.log('info', info);
 		if (err) { 
 			console.log('err');
 			return next(err);
 		}
+
+		console.log('user', user);
+
 		if (!user) {
 			console.log('!user');
-			//req.session.messages =  [info.message];
-			return res.redirect('/login')
+			req.session.messages = [info.message];
+			//return res.redirect('/login');
+			return res.render('login', { user: req.user, message: req.session.messages });
 		}
+
 		req.logIn(user, function(err) {
-			console.log('logIn');
 			if (err) { 
-				console.log('...err');
 				return next(err); 
 			}
-			console.log('logged in');
-			return res.redirect('/');
+			console.log('logged in', user);
+			console.log('req', req);
+			return res.redirect('/#' + user.username);
 		});
 	})(req, res, next);
 };
 
-exports.logout = function(req, res) {
+var logout = function(req, res) {
 	req.logout();
 	res.redirect('/');
 };
+
+module.exports  = {
+	account: account,
+	getlogin: getlogin,
+	admin: admin,
+	postlogin: postlogin,
+	logout: logout
+}

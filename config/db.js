@@ -23,10 +23,24 @@ var Schema = mongoose.Schema,
 
 // User schema
 var userSchema = new Schema({
-  username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true},
-  admin: { type: Boolean, required: true },
+	username: { 
+		type: String, 
+		required: true, 
+		unique: true 
+	},
+	email: { 
+		type: String, 
+		required: true, 
+		unique: true 
+	},
+	password: { 
+		type: String, 
+		required: true
+	},
+	admin: { 
+		type: Boolean, 
+		required: true 
+	}
 });
 
 
@@ -50,7 +64,10 @@ userSchema.pre('save', function(next) {
 // Password verification
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
 	bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-		if(err) return cb(err);
+		if (err) {
+			console.log('err', err);
+			return cb(err);
+		}
 		cb(null, isMatch);
 	});
 };

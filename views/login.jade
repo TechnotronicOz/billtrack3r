@@ -1,6 +1,13 @@
 extends layout
 
 block content
+
+	if message
+		p #{message}
+
+	if user
+		p #{user}
+
 	form(method="post" action="/login")
 		Username: input(type="text" name="username")
 

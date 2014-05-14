@@ -1,6 +1,6 @@
-var passport = require('passport')
-	, LocalStrategy = require('passport-local').Strategy
-	, db = require('./db');
+var passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy,
+	db = require('./db');
 
 passport.serializeUser(function(user, done) {
 	done(null, user.id);
@@ -21,19 +21,32 @@ passport.use(new LocalStrategy(function(username, password, done) {
 			return done(null, false, { message: 'Unknown user ' + username }); 
 		}
 		user.comparePassword(password, function(err, isMatch) {
-			if (err) return done(err);
+			console.log('password', password);
+			console.log('err', err);
+			console.log('isMatch', isMatch);
+			if (err) {
+				return done(err);
+			}
+
 			if (isMatch) {
 				return done(null, user);
 			} else {
 				return done(null, false, { message: 'Invalid password' });
 			}
+
 		});
 	});
 }));
 
 // Simple route middleware to ensure user is authenticated.  Otherwise send to login page.
 exports.ensureAuthenticated = function ensureAuthenticated(req, res, next) {
-	if (req.isAuthenticated()) { return next(); }
+	console.log(req.isAuthenticated());
+	if (req.isAuthenticated()) { 
+		console.log('req.isAuthenticated');
+		return next(req, res); 
+	} else {
+		console.log('!req.isAuthenticated');
+	}
 	res.redirect('/login');
 }
 
