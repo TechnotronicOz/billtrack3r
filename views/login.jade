@@ -3,14 +3,20 @@ extends layout
 block content
 
 	if message
-		p #{message}
+		.bs-callout.bs-callout-danger
+			h4 Error!
+			p #{message}
 
 	if user
 		p #{user}
 
-	form(method="post" action="/login")
-		Username: input(type="text" name="username")
+	form(method="post" action="/login" role="form")
+		.form-group
+			label(for="username") Username
+			input(type="text" name="username" class="form-control" placeholder="Enter your username")
 
-		Password: input(type="password" name="password")
+		.form-group
+			label(for="password") Password
+			input(type="password" name="password" class="form-control" placeholder="Enter your password")
 
-		input(type="submit" value="Submit")
+		input(type="submit" value="Submit" class="btn btn-default")
