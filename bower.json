@@ -1,0 +1,17 @@
+{
+  "name": "billtrack3r",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": "~1.2.16",
+    "angular-sanitize": "~1.2.16",
+    "angular-animate": "~1.2.16",
+    "angular-route": "~1.2.16",
+    "bootstrap": "~3.1.1",
+    "angular-strap": "~2.0.2",
+    "angular-ui-bootstrap": "~0.11.0",
+    "angular-ui-router": "~0.2.10",
+    "restangular": "~1.4.0",
+    "requirejs-domready": "~2.0.1"
+  },
+  "devDependencies": {}
+}

@@ -1,17 +1,21 @@
 extends layout
 
 block content
-	#header
-	#app
-	#footer
+    #header
+    #app
+    #footer
 
 
-	h1= title
-	p Welcome to #{title}
+    h1= title
+    p Welcome to #{title}
 
-	if user
-		p id: #{user._id}
-		p user: #{user.username}
-		p email: #{user.email}
-		p admin: #{user.admin}
+    if user
+        p id: #{user._id}
+        p user: #{user.username}
+        p email: #{user.email}
+        p admin: #{user.admin}
 
+
+    div(ng-controller="HelloController")
+        input(ng-model="greeting.text")
+        p {{greeting.text}}, World

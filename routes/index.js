@@ -10,7 +10,8 @@ router.get('/', function(req, res) {
 
 function checkUserState(req, res) {
 	if (req.user) {
-		return res.render('index', { title: 'BillTrack3r', user: req.user });
+		//return res.render('index', { title: 'BillTrack3r', user: req.user });
+        res.redirect('/app');
 	}
 	return res.redirect('/login');
 }

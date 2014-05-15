@@ -14,6 +14,7 @@ var express     = require('express'),
 
     routes = require('./routes/index'),
     user_routes = require('./routes/users'),
+    app_routes = require('./routes/app'),
 
     app = express();
 
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 //app.use('/users', users);
+app.use('/app', app_routes);
 
 // passport auth routes
 app.get('/account', pass.ensureAuthenticated, user_routes.account);

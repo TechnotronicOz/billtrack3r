@@ -33,7 +33,7 @@ var postlogin = function(req, res, next) {
 				return next(err); 
 			}
 			//return res.render('index', { user: user });
-			return res.redirect('/#' + user._id);
+			return res.redirect('/app/#' + user._id);
 		});
 	})(req, res, next);
 };

@@ -1,9 +1,14 @@
 require(['config'], function() {
-    require(['app', 'router'], function(app, Router) {
+    require(['domReady', 'angular'], function(document, angular) {
 
-        app.router = new Router();
+        function HelloController($scope, $location) {
+            $scope.greeting = { text: 'Hello' };
+        }
 
-        Backbone.history.start({ pushState: false, root: app.root });
+        console.log(angular);
+
+        angular.bootstrap(document, [ HelloController ]);
+        console.log("Bootstrapping complete.");
 
     });
 });
