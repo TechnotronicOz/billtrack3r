@@ -19,3 +19,11 @@ block content
     div(ng-controller="HelloController")
         input(ng-model="greeting.text")
         p {{greeting.text}}, World
+
+    div(ng-controller='CartController')
+        div(ng-repeat='item in items')
+            span {{item.title}}
+            input(ng-model='item.quantity')
+            span {{item.price | currency}}
+            span {{item.price * item.quantity | currency}}
+            button(ng-click='remove($index)') Remove

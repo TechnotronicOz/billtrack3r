@@ -1,4 +1,4 @@
-require(['config'], function() {
+/*require(['config'], function() {
     require(['domReady', 'angular'], function(document, angular) {
 
         function HelloController($scope, $location) {
@@ -11,4 +11,4 @@ require(['config'], function() {
         console.log("Bootstrapping complete.");
 
     });
-});
+});*/
