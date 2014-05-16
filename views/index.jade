@@ -16,14 +16,22 @@ block content
         p admin: #{user.admin}
 
 
-    div(ng-controller="HelloController")
-        input(ng-model="greeting.text")
-        p {{greeting.text}}, World
-
-    div(ng-controller='CartController')
-        div(ng-repeat='item in items')
-            span {{item.title}}
-            input(ng-model='item.quantity')
-            span {{item.price | currency}}
-            span {{item.price * item.quantity | currency}}
-            button(ng-click='remove($index)') Remove
+    table.table.table-striped(ng-controller='BillListController')
+        thead
+            tr
+                th #
+                th Bill
+                th Due Date
+                th Amount
+                th Pd Date
+                th Pd Amt
+                th Conf
+        tbody.table-hover
+            tr(ng-repeat='bill in bills')
+                td {{bill.id}}
+                td {{bill.name}}
+                td {{bill.due_date}}
+                td {{bill.amount | currency}}
+                td {{bill.pd_date}}
+                td {{bill.pd_amt | currency}}
+                td {{bill.conf}}

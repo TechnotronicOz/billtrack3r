@@ -1,15 +1,37 @@
-function HelloController($scope, $location) {
-    $scope.greeting = { text: 'Hello' };
-}
+var myAppMod = angular.module('myApp', []);
 
-function CartController($scope) {
-    $scope.items = [
-        { title: 'One', quantity: 8, price: 3.95 },
-        { title: 'Two', quantity: 4, price: 9.99 },
-        { title: 'Three', quantity: 2, price: 6.95 }
-    ]
+myAppMod.controller('BillListController', function($scope) {
+    $scope.bills = [
+        {
+            id: 1,
+            name: 'Nebraska Furniture Mart',
+            due_date: new Date('5/18/2014'),
+            amount: 25,
+            pd_date: new Date('5/11/2014'),
+            pd_amt: 250,
+            conf: '4580131'
+        },
+        {
+            id: 2,
+            name: 'Wells Fargo Dealer Services',
+            due_Date: new Date('5/30/2014'),
+            amount: 380,
+            pd_date: null,
+            pd_amt: 0,
+            conf: ''
+        },
+        {
+            id: 3,
+            name: 'KCP&L',
+            due_date: new Date('5/11/2014'),
+            amount: 75,
+            pd_date: new Date('5/9/2014'),
+            pd_amt: 75,
+            conf: '1234'
+        }
+    ];
 
     $scope.remove = function(index) {
-        $scope.items.splice(index, 1);
+        $scope.bills.splice(index, 1);
     }
-}
+})
