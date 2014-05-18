@@ -35,3 +35,20 @@ block content
                 td {{bill.pd_date}}
                 td {{bill.pd_amt | currency}}
                 td {{bill.conf}}
+
+
+
+    form(role='form' ng-controller='NewBillCtrl')
+        .form-group
+            label(for='billName') Bill
+            input(type='text' class='form-control input-lg' name='billName' placeholder='Enter Bill' ng-model='bill.billName')
+
+        .form-group
+            label(for='billDueDate') Due Date
+            input(type='text' class='form-control input-lg' name='billDueDate' placeholder='Enter due date (5/11/2014' ng-model='bill.billDueDate')
+
+        .form-group
+            label(for='billAmount') Amount
+            input(type='text' class='form-control input-lg' name='billAmount' placeholder='Enter amount due' ng-model='bill.billAmount')
+
+        input(type='submit' class='btn btn-default' value='Save' ng-click='SaveData()')

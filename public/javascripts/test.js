@@ -1,6 +1,9 @@
 var myAppMod = angular.module('myApp', []);
 
-myAppMod.controller('BillListController', function($scope) {
+myAppMod.controller('BillListController', function($scope, $http) {
+    $http.get('/bills').success(function(ret) {
+        console.log('ret', ret);
+    });
     $scope.bills = [
         {
             id: 1,
@@ -34,4 +37,20 @@ myAppMod.controller('BillListController', function($scope) {
     $scope.remove = function(index) {
         $scope.bills.splice(index, 1);
     }
-})
+});
+
+myAppMod.controller('NewBillCtrl', function($scope, $http) {
+    $scope.SaveData = function() {
+        console.log($scope);
+        $http.post('/bills', $scope.bill).success(function(data) {
+            console.log('success', data);
+        }).error(function(data) {
+            console.log('error', data);
+        });
+    };
+    /* $http.post('/bills').success(function(data) {
+        console.log('success', data);
+    }).error(function(data) {
+        console.log('error', data);
+    }); */
+});
