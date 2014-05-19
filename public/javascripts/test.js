@@ -1,6 +1,9 @@
 var myAppMod = angular.module('myApp', []);
 
-myAppMod.controller('BillListCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+myAppMod.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', function($scope, $http, $rootScope, Bills) {
+
+    console.log('Bills', Bills);
+
     $http.get('/bills').success(function(data) {
         $scope.bills = data;
     });
@@ -31,4 +34,10 @@ myAppMod.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', function($s
             console.log('error', data);
         });
     };
+}]);
+
+myAppMod.factory('Bills', ['$http', function($http) {
+    $http.get('/bills').success(function(data) {
+        return data;
+    });
 }]);
