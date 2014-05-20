@@ -17,21 +17,12 @@ require.config({
     },
 
     shim: {
-        /*backbone: {
-            deps: [
-                'underscore',
-                'jquery'
-            ],
-            exports: 'Backbone'
-        },*/
+        angular: { exports: 'angular' },
+        bootstrap: { deps: ['jquery'], exports: 'jquery' },
+        ngAnimate: { deps: ['angular'] },
+        ngRoute: { deps: ['angular'] },
+        ngStrap: { deps: ['angular'] }
+    },
 
-        bootstrap: {
-            deps: ['jquery'],
-            exports: 'jquery'
-        },
-
-        handlebars: {
-            exports: 'Handlebars'
-        }
-    }
+    deps: ['./main']
 });

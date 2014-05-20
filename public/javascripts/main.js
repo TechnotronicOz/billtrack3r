@@ -1,14 +1,9 @@
-/*require(['config'], function() {
-    require(['domReady', 'angular'], function(document, angular) {
-
-        function HelloController($scope, $location) {
-            $scope.greeting = { text: 'Hello' };
-        }
-
-        console.log(angular);
-
-        angular.bootstrap(document, [ HelloController ]);
-        console.log("Bootstrapping complete.");
-
+define([
+    'require',
+    'angular',
+    'test'
+], function(require, angular, test) {
+    require(['domReady!'], function(document) {
+        angular.bootstrap(document, ['myApp']);
     });
-});*/
+});

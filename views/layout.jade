@@ -1,14 +1,10 @@
 doctype html
-html(lang="en", ng-app="myApp")
+html(lang="en")
     head
     title= pageTitle
     link(rel='stylesheet', href='/stylesheets/style.css')
 
     body
-
         block content
 
-
-        script(src='/components/angular/angular.js')
-        script(src='/javascripts/test.js')
-        //script(src='/components/requirejs/require.js' data-main='/javascripts/main')
+        script(src='/components/requirejs/require.js' data-main='/javascripts/config')
