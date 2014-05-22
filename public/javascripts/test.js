@@ -1,7 +1,9 @@
 define([
     'angular'
 ], function(angular) {
-    var myAppMod = angular.module('myApp', []);
+    var app = 'myApp';
+
+    var myAppMod = angular.module(app, []);
 
     myAppMod.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', function($scope, $http, $rootScope, Bills) {
 
@@ -45,6 +47,6 @@ define([
         });
     }]);
 
-    return myAppMod;
+    return app;
 
 });

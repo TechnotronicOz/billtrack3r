@@ -4,6 +4,6 @@ define([
     'test'
 ], function(require, angular, test) {
     require(['domReady!'], function(document) {
-        angular.bootstrap(document, ['myApp']);
+        angular.bootstrap(document, [test]);
     });
 });
