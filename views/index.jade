@@ -44,9 +44,9 @@ block content
             tbody.table-hover
                 tr(ng-repeat='bill in bills | filter: search:billName | orderBy: sortExpr')
                     td {{bill.billName}}
-                    td {{bill.billDueDate}}
+                    td {{bill.billDueDate | momentCalendar}}
                     td {{bill.billAmount | currency}}
-                    td {{bill.billPdDate}}
+                    td {{bill.billPdDate | momentFromNow}}
                     td {{bill.billPdAmt | currency}}
                     td {{bill.billConf}}
 

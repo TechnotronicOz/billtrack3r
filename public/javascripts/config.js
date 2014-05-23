@@ -12,8 +12,8 @@ require.config({
         ngRoute: '../components/angular-route/angular-route',
         ngSanitize: '../components/angular-sanitize/angular-sanitize',
         ngStrap: '../components/angular-strap/dist/angular-strap',
-        ngStrapTmpl: '../components/angular-strap/dist/angular-strap.tpl'
-
+        ngStrapTmpl: '../components/angular-strap/dist/angular-strap.tpl',
+        moment: '../components/moment/moment'
     },
 
     shim: {
@@ -21,7 +21,8 @@ require.config({
         bootstrap: { deps: ['jquery'], exports: 'jquery' },
         ngAnimate: { deps: ['angular'] },
         ngRoute: { deps: ['angular'] },
-        ngStrap: { deps: ['angular'] }
+        ngStrap: { deps: ['angular'] },
+        moment: { exports: 'moment' }
     },
 
     deps: ['./main']

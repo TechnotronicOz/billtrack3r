@@ -12,15 +12,15 @@ db.once('open', function callback () {
     console.log('connected to mongo...');
 }); */
 
-// Our weather model schema
+// Our bill model schema
 var Schema = new mongoose.Schema({
     id: Number,
     userId: Number,
     billName: String,
-    billDueDate: { type: Date, default: Date.now },
+    billDueDate: { type: Date, default: Date },
     billAmount: Number,
     billPd: Boolean,
-    billPdDate: { type: Date, default: Date.now },
+    billPdDate: { type: Date, default: Date },
     billPdAmt: Number,
     billConf: String
 });

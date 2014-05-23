@@ -1,23 +1,47 @@
 define([
-    'angular'
-], function(angular) {
+    'angular',
+    'moment',
+    'ngRoute'
+], function(angular, moment, ngRoute) {
+
+    console.log('moment', moment);
+
     var app = 'myApp',
 
-    app = angular.module(app, [
-        'ngRoute',
-        'BillListCtrl'
+    billApp = angular.module(app, [
+        'ngRoute'
     ]);
 
-    app.config(function($routeProvider) {
+    /* app.config(function($routeProvider) {
         $routeProvider
             .when('new', {
                 controller: BillListCtrl,
                 templateUrl: '../templates/newbill.html'
             })
             .otherwise();
+    });*/
+
+    billApp.filter('momentFromNow', function() {
+        var momentFilter = function(input) {
+            console.log('input', input);
+            var test = new moment(input).from(new Date);
+            return test;
+        }
+        /*return function(scope, elem, attr) {
+            console.log('scope', scope);
+            console.log('elem', elem);
+            console.log('attr', attr);
+        }*/
+        return momentFilter;
     });
 
-    app.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', function($scope, $http, $rootScope, Bills) {
+    billApp.filter('momentCalendar', function() {
+        return function(input) {
+            return new moment(input).calendar();
+        }
+    });
+
+    billApp.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', function($scope, $http, $rootScope, Bills) {
 
         console.log('Bills', Bills);
 
@@ -33,7 +57,7 @@ define([
     }]);
 
 
-    app.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+    billApp.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
         $scope.formState = false;
 
         $scope.toggleForm = function() {
@@ -50,7 +74,7 @@ define([
         };
     }]);
 
-    app.factory('Bills', ['$http', function($http) {
+    billApp.factory('Bills', ['$http', function($http) {
         $http.get('/bills').success(function(data) {
             return data;
         });

@@ -12,7 +12,8 @@
     "angular-ui-router": "~0.2.10",
     "restangular": "~1.4.0",
     "requirejs-domready": "~2.0.1",
-    "angular-moment": "~0.7.1"
+    "angular-moment": "~0.7.1",
+    "moment": "~2.6.0"
   },
   "devDependencies": {}
 }
