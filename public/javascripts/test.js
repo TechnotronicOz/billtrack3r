@@ -1,11 +1,23 @@
 define([
     'angular'
 ], function(angular) {
-    var app = 'myApp';
+    var app = 'myApp',
 
-    var myAppMod = angular.module(app, []);
+    app = angular.module(app, [
+        'ngRoute',
+        'BillListCtrl'
+    ]);
 
-    myAppMod.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', function($scope, $http, $rootScope, Bills) {
+    app.config(function($routeProvider) {
+        $routeProvider
+            .when('new', {
+                controller: BillListCtrl,
+                templateUrl: '../templates/newbill.html'
+            })
+            .otherwise();
+    });
+
+    app.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', function($scope, $http, $rootScope, Bills) {
 
         console.log('Bills', Bills);
 
@@ -21,17 +33,14 @@ define([
     }]);
 
 
-    myAppMod.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+    app.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
         $scope.formState = false;
 
         $scope.toggleForm = function() {
-            console.log('toggleForm');
             $scope.formState = !$scope.formState;
         }
 
         $scope.SaveData = function() {
-            console.log($scope);
-
             $http.post('/bills', $scope.bill).success(function(data) {
                 $rootScope.$emit('bill', data);
                 $scope.formState = false;
@@ -41,7 +50,7 @@ define([
         };
     }]);
 
-    myAppMod.factory('Bills', ['$http', function($http) {
+    app.factory('Bills', ['$http', function($http) {
         $http.get('/bills').success(function(data) {
             return data;
         });

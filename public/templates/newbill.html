@@ -1,0 +1,20 @@
+<a ng-click='toggleForm()' class='btn btn-primary'>Add</a>
+<hr>
+<form role='form' ng-show='formState' ng-submit='SaveData()'>
+    <div class="form-group">
+        <label for="billName">Bill</label>
+        <input type="text" class="form-control input-lg" name="billName" placeholder="Enter Bill" ng-model="bill.billName" />
+    </div>
+
+    <div class="form-group">
+        <label for="billDueDate">Due Date</label>
+        <input type="text" class="form-control input-lg" name="billDueDate" placeholder="Enter due date" ng-model="bill.billDueDate" />
+    </div>
+
+    <div class="form-group">
+        <label for="billAmount">Amount</label>
+        <input type="text" class="form-control input-lg" name="billAmount" placeholder="Enter amount due" ng-model="bill.billAmount" />
+    </div>
+
+    <input type="submit" class="btn btn-success" value="Save" />
+</form>
