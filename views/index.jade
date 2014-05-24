@@ -51,6 +51,8 @@ block content
                     td {{bill.billConf}}
 
 
+    div(ng-view)
+
     div(ng-controller='NewBillCtrl')
         a(ng-click='toggleForm()' class='btn btn-primary') Add
         hr
