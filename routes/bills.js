@@ -52,7 +52,8 @@ router.post('/', function(req, res) {
         user: req.body.user,
         billName: req.body.billName,
         billDueDate: req.body.billDueDate,
-        billAmount: req.body.billAmount
+        billAmount: req.body.billAmount,
+        billPd: false
     });
 
     return model.save(function(err) {
