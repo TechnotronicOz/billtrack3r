@@ -1,13 +1,34 @@
-var angular = require('../components/angular/angular.js');
+require('../components/angular/angular');
+var newBill = angular.module('newBill', []);
 
-module.exports = function($scope, $http, $rootScope, Bills) {
-    $http.get('/bills').success(function(data) {
-        $scope.bills = data;
-    });
+var moduleName = 'newBill';
 
-    $scope.$watch('bills', function(oldData, newData, scope) {});
+angular.module(moduleName, ['mgcrea.ngStrap'])
+    .controller('NewBillCtrl', ['$scope', '$http', '$rootScope', '$modal', function($scope, $http, $rootScope, $modal) {
+        console.log('the innards');
 
-    $rootScope.$on('bill', function(evt, data) {
-        $scope.bills.push(data);
-    });
-}
+        $scope.formState = false;
+
+        $scope.toggleForm = function() {
+            $scope.formState = !$scope.formState;
+        }
+
+        $scope.toggleModal = function() {
+            var theModal = $modal({
+                scope: $scope,
+                template: '/templates/newbill.html'
+            });
+            theModal.$promise.then(theModal.show);
+        }
+
+        $scope.SaveData = function() {
+            $http.post('/bills', $scope.bill).success(function(data) {
+                $rootScope.$emit('bill', data);
+                $scope.formState = false;
+            }).error(function(data) {
+                console.log('error', data);
+            });
+        };
+    }]);
+
+module.exports = moduleName;

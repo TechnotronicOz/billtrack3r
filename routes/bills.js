@@ -15,7 +15,7 @@ db.once('open', function callback () {
 // Our bill model schema
 var Schema = new mongoose.Schema({
     id: Number,
-    userId: Number,
+    user: String,
     billName: String,
     billDueDate: { type: Date, default: Date },
     billAmount: Number,
@@ -32,7 +32,10 @@ d.model = BillModel;
 // Get all models
 router.get('/', function(req, res) {
     console.log('get...');
-    BillModel.find(function(err, models) {
+    console.log(req.user.email);
+    // {_id : "ObjectId(4d2a0fae9e0a3b4b32f70000)"}
+    //BillModel.find({ userId: "ObjectId("+req.user._id+")"}, function(err, models) {
+    BillModel.find({ 'user': req.user.email }, function(err, models) {
         if (err) {
             return console.log('Error', err);
         }
@@ -46,6 +49,7 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
     console.log('Creating new Bill Model');
     var model = new BillModel({
+        user: req.body.user,
         billName: req.body.billName,
         billDueDate: req.body.billDueDate,
         billAmount: req.body.billAmount

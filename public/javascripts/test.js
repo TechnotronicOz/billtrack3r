@@ -1,37 +1,36 @@
 require('../components/angular/angular.min');
-var moment = require('../components/moment/moment');
-var ngRoute = require('../components/angular-route/angular-route');
-var BillListCtrl = require('./billlistctrl');
-
-var billApp;
+require('../components/angular-route/angular-route');
+require('../components/angular-strap/dist/angular-strap');
+require('../components/angular-strap/dist/angular-strap.tpl');
+var moment = require('../components/moment/moment');/*,
+    BillListCtrl = require('./billlistctrl');*/
 
 var app = 'myApp',
+    billApp;
 
 billApp = angular.module(app, [
-    'ngRoute'
+    'ngRoute',
+    'mgcrea.ngStrap'/* ,
+    BillListCtrl */
 ]);
 
-/*billApp.config(function($routeProvider) {
+billApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
-        .when('new', {
-            controller: BillListCtrl,
+        .when('/new', {
+            controller: 'NewBillCtrl',
             templateUrl: '../templates/newbill.html'
         })
-        .otherwise();
-});*/
+        .otherwise({
+            redirectTo: '/'
+        });
+    //$locationProvider.html5Mode(true);
+
+});
 
 billApp.filter('momentFromNow', function() {
-    var momentFilter = function(input) {
-        console.log('input', input);
-        var test = new moment(input).from(new Date);
-        return test;
+    return function(input) {
+        return new moment(input).from(new Date);
     }
-    /*return function(scope, elem, attr) {
-        console.log('scope', scope);
-        console.log('elem', elem);
-        console.log('attr', attr);
-    }*/
-    return momentFilter;
 });
 
 billApp.filter('momentCalendar', function() {
@@ -40,9 +39,9 @@ billApp.filter('momentCalendar', function() {
     }
 });
 
-billApp.controller('BillListCtrl', ['$scope', '$http', '$rootScope', /*'Bills',*/ function($scope, $http, $rootScope/*, Bills*/) {
+billApp.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', 'UserService', function($scope, $http, $rootScope, Bills, UserService) {
 
-    //console.log('Bills', Bills);
+    UserService.storeUser(window.user);
 
     $http.get('/bills').success(function(data) {
         $scope.bills = data;
@@ -56,14 +55,25 @@ billApp.controller('BillListCtrl', ['$scope', '$http', '$rootScope', /*'Bills',*
 }]);
 
 
-billApp.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+billApp.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', '$modal', 'UserService', function($scope, $http, $rootScope, $modal, UserService) {
     $scope.formState = false;
 
     $scope.toggleForm = function() {
+        console.log('toggleForm');
         $scope.formState = !$scope.formState;
     }
 
+    $scope.toggleModal = function() {
+        var theModal = $modal({
+            scope: $scope,
+            template: '/templates/newbill.html'
+        });
+        theModal.$promise.then(theModal.show);
+    }
+
+    $scope.user = UserService.getUser();
     $scope.SaveData = function() {
+        $scope.bill.user = $scope.user.email;
         $http.post('/bills', $scope.bill).success(function(data) {
             $rootScope.$emit('bill', data);
             $scope.formState = false;
@@ -72,6 +82,18 @@ billApp.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', function($sc
         });
     };
 }]);
+
+billApp.factory('UserService', function() {
+    var storedUser;
+    return {
+        storeUser: function(user) {
+            storedUser = user;
+        },
+        getUser: function() {
+            return storedUser;
+        }
+    }
+});
 
 billApp.factory('Bills', ['$http', function($http) {
     $http.get('/bills').success(function(data) {

@@ -51,19 +51,21 @@ block content
                     td {{bill.billConf}}
 
 
-    div(ng-view)
+    //div(ng-view)
 
     div(ng-controller='NewBillCtrl')
         a(ng-click='toggleForm()' class='btn btn-primary') Add
         hr
         form(role='form' ng-show='formState' ng-submit='SaveData()')
+            input(type='hidden' name='billUser' ngModel='bill.userId')
             .form-group
                 label(for='billName') Bill
                 input(type='text' class='form-control input-lg' name='billName' placeholder='Enter Bill' ng-model='bill.billName')
 
             .form-group
                 label(for='billDueDate') Due Date
-                input(type='text' class='form-control input-lg' name='billDueDate' placeholder='Enter due date (5/11/2014' ng-model='bill.billDueDate')
+                //input(type='text' class='form-control input-lg' name='billDueDate' placeholder='Enter due date (5/11/2014' ng-model='bill.billDueDate')
+                input(type="text" name="billDueDate" class="form-control" ng-model="bill.billDueDate" bs-datepicker)
 
             .form-group
                 label(for='billAmount') Amount

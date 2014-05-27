@@ -4,6 +4,10 @@ html(lang="en")
     title= pageTitle
     link(rel='stylesheet', href='/stylesheets/style.css')
 
+    if user
+        script.
+            window.user = {id: '#{user._id}', email: '#{user.email}'};
+
     body
         block content
 
