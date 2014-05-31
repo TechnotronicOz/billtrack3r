@@ -32,14 +32,10 @@ d.model = BillModel;
 // Get all models
 router.get('/', function(req, res) {
     console.log('get...');
-    console.log(req.user.email);
-    // {_id : "ObjectId(4d2a0fae9e0a3b4b32f70000)"}
-    //BillModel.find({ userId: "ObjectId("+req.user._id+")"}, function(err, models) {
     BillModel.find({ 'user': req.user.email }, function(err, models) {
         if (err) {
             return console.log('Error', err);
         }
-        console.log('models');
         return res.send(models);
 
     });
