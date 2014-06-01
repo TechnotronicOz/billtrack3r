@@ -5,27 +5,40 @@ require('../components/angular-strap/dist/angular-strap.tpl');
 var moment = require('../components/moment/moment');/*,
     BillListCtrl = require('./billlistctrl');*/
 
+
 var app = 'myApp',
     billApp;
 
 billApp = angular.module(app, [
     'ngRoute',
-    'mgcrea.ngStrap'/* ,
-    BillListCtrl */
+    'mgcrea.ngStrap'/*,
+    'delete'*/
+    /* ,BillListCtrl */
 ]);
 
-billApp.config(function($routeProvider, $locationProvider) {
+/* billApp.config(function($routeProvider, $locationProvider) {
+    console.log('config');
     $routeProvider
         .when('/new', {
-            controller: 'NewBillCtrl',
+            //controller: 'NewBillCtrl',
+            controller: function() {
+                console.log('/new', arguments);
+            },
             templateUrl: '../templates/newbill.html'
+        })
+        .when('/view', {
+            controller: 'DeleteCtrl',
+            controller: function() {
+                console.log('/view', arguments);
+            },
+            templateUrl: '../templates/delete.html'
         })
         .otherwise({
             redirectTo: '/'
         });
     //$locationProvider.html5Mode(true);
 
-});
+}); */
 
 billApp.filter('momentFromNow', function() {
     return function(input) {
@@ -40,10 +53,11 @@ billApp.filter('momentCalendar', function() {
 });
 
 billApp.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', 'UserService', function($scope, $http, $rootScope, Bills, UserService) {
-
+    console.log('BillListCtrl');
     UserService.storeUser(window.user);
 
     $http.get('/bills').success(function(data) {
+        console.log(data);
         $scope.bills = data;
     });
 
@@ -56,6 +70,7 @@ billApp.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'Bills', 'U
 
 
 billApp.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', '$modal', 'UserService', function($scope, $http, $rootScope, $modal, UserService) {
+    console.log('NewBillCtrl');
     $scope.formState = false;
 
     $scope.toggleForm = function() {
