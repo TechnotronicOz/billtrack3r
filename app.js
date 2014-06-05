@@ -45,7 +45,7 @@ app.use('/bills', bill_routes);
 app.get('/account', pass.ensureAuthenticated, user_routes.account);
 app.get('/login', user_routes.getlogin);
 app.post('/login', user_routes.postlogin);
-app.get('/admin', pass.ensureAuthenticated, /*pass.ensureAdmin(),*/ user_routes.admin);
+//app.get('/admin', pass.ensureAuthenticated, /*pass.ensureAdmin(),*/ user_routes.admin);
 app.get('/logout', user_routes.logout);
 
 /// catch 404 and forwarding to error handler
