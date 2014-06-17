@@ -1,0 +1,41 @@
+<form class="form-inline" ng-submit="FilterList">
+	<div class="form-group">
+		<label class="sr-only">Search</label>
+		<input class="form-control" type="text" placeholder="Filter by Name" ng-model="search"></input>
+	</div>
+
+	<div class="form-group">
+		<select class="form-control" ng-model="sortExpr">
+			<option value="">Sort by</option>
+			<option value="billName">Bill Name</option>
+			<option value="billDueDate">Due Date</option>
+		</select>
+	</div>
+</form>
+
+<hr>
+
+<a class="btn btn-primary" href="/app/#/new">Add</a>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Bill</th>
+			<th>Due Date</th>
+			<th>Amount</th>
+			<th>Pd Date</th>
+			<th>Pd Amt</th>
+			<th>Conf</th>
+		</tr>
+	</thead>
+	<tbody class="table-hover">
+		<tr ng-repeat="bill in bills | filter: search:billName | orderBy: sortExpr">
+			<td>{{bill.billName}}</td>
+		 	<td>{{bill.billDueDate | momentCalendar}}</td>
+		 	<td>{{bill.billAmount | currency}}</td>
+		 	<td>{{bill.billPdDate | momentFromNow}}</td>
+		 	<td>{{bill.billPdAmt | currency}}</td>
+		 	<td>{{bill.billConf}}</td>
+		</tr>
+	</tbody>
+</table>
