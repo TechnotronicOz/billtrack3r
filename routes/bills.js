@@ -17,11 +17,9 @@ var Schema = new mongoose.Schema({
     id: Number,
     user: String,
     billName: String,
-    //billDueDate: { type: Date, default: Date },
     billDueDate: String,
     billAmount: Number,
     billPd: Boolean,
-    //billPdDate: { type: Date, default: Date },
     billPdDate: String,
     billPdAmt: Number,
     billConf: String
@@ -66,10 +64,6 @@ router.post('/', function(req, res) {
 router.put('/:id', function(req, res) {
     console.log('Updating bil; ' + req.body.id);
     return BillModel.findById(req.params.id, function(err, model) {
-        /* model.city = req.body.city;
-        model.state = req.body.state;
-        model.time = Date.now() */
-
         return model.save(function(err) {
             if (err) {
                 return console.log('Save error ' + err);
@@ -83,7 +77,6 @@ router.put('/:id', function(req, res) {
 router.delete('/:id', function(req, res) {
     console.log('Deleting entry: ' + req.params.id);
     return BillModel.findById(req.params.id, function(err, model) {
-
         if (model == null) {
             return res.send('');
         }
@@ -92,7 +85,8 @@ router.delete('/:id', function(req, res) {
             if (!err) {
                 return res.send('');
             } else {
-                return console.log('error', err);
+                console.log('error', err);
+                return res.send(err);
             }
         });
     });

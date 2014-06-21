@@ -26,6 +26,7 @@
 			<th>Pd Date</th>
 			<th>Pd Amt</th>
 			<th>Conf</th>
+            <th></th>
 		</tr>
 	</thead>
 	<tbody class="table-hover">
@@ -36,6 +37,7 @@
 		 	<td>{{bill.billPdDate | momentFromNow}}</td>
 		 	<td>{{bill.billPdAmt | currency}}</td>
 		 	<td>{{bill.billConf}}</td>
+            <td><a class="btn btn-primary" ng-click="deleteRecord($index)"><i class="fa fa-minus-square-o"></i></a></td>
 		</tr>
 	</tbody>
 </table>
