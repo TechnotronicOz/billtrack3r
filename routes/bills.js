@@ -17,10 +17,12 @@ var Schema = new mongoose.Schema({
     id: Number,
     user: String,
     billName: String,
-    billDueDate: { type: Date, default: Date },
+    //billDueDate: { type: Date, default: Date },
+    billDueDate: String,
     billAmount: Number,
     billPd: Boolean,
-    billPdDate: { type: Date, default: Date },
+    //billPdDate: { type: Date, default: Date },
+    billPdDate: String,
     billPdAmt: Number,
     billConf: String
 });

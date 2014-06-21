@@ -18,10 +18,10 @@ angular.module('billApp.controllers', [])
 			$scope.bills.push(data);
 		});
 	}])
-	
+
 	.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', '$modal', 'UserService', function($scope, $http, $rootScope, $modal, UserService) {
 		console.log('NewBillCtrl');
-		$scope.formState = false;
+		$scope.formState = true;
 
 		$scope.toggleForm = function() {
 			console.log('toggleForm');
