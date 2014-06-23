@@ -40,21 +40,12 @@ angular.module('billApp.controllers', [])
         };
 	}])
 
-	.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', '$modal', 'UserService', function($scope, $http, $rootScope, $modal, UserService) {
+	.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', 'UserService', function($scope, $http, $rootScope, $modal, UserService) {
 
 		$scope.formState = true;
 
 		$scope.toggleForm = function() {
-			console.log('toggleForm');
 			$scope.formState = !$scope.formState;
-		};
-
-		$scope.toggleModal = function() {
-			var theModal = $modal({
-				scope: $scope,
-				template: '/partials/newbillmodal.html'
-			});
-			theModal.$promise.then(theModal.show);
 		};
 
 		$scope.user = UserService.getUser();

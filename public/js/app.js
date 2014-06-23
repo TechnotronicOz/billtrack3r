@@ -2,7 +2,7 @@
 
 angular.module('billApp', [
 	'ngRoute',
-	'mgcrea.ngStrap',
+	//'mgcrea.ngStrap',
 	'billApp.filters',
 	'billApp.services',
 	'billApp.directives', 
