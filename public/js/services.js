@@ -23,15 +23,15 @@ angular.module('billApp.services', [])
             },
             delete: {
                 method: 'DELETE',
-                params:
+                params: {}
             }
         });
     }]);
 
 
-phonecatServices.factory('Phone', ['$resource',
+/*phonecatServices.factory('Phone', ['$resource',
     function($resource){
         return $resource('phones/:phoneId.json', {}, {
             query: {method:'GET', params:{phoneId:'phones'}, isArray:true}
         });
-    }]);
+    }]); */
