@@ -44,8 +44,10 @@ router.get('/', function(req, res) {
 // Create new model
 router.post('/', function(req, res) {
     console.log('Creating new Bill Model');
+    var user = req.user.email;
     var model = new BillModel({
-        user: req.body.user,
+        //user: req.body.user,
+        user: user,
         billName: req.body.billName,
         billDueDate: req.body.billDueDate,
         billAmount: req.body.billAmount,
@@ -62,7 +64,7 @@ router.post('/', function(req, res) {
 
 // Update model
 router.put('/:id', function(req, res) {
-    console.log('Updating bil; ' + req.body.id);
+    console.log('Updating bill ' + req.body.id);
     return BillModel.findById(req.params.id, function(err, model) {
         return model.save(function(err) {
             if (err) {

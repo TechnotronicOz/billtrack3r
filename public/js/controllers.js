@@ -3,22 +3,12 @@
 /* Controllers */
 
 angular.module('billApp.controllers', [])
-	.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'UserService', function($scope, $http, $rootScope, UserService) {
+	.controller('BillListCtrl', ['$scope', '$http', '$rootScope', 'UserService', 'BillService', function($scope, $http, $rootScope, UserService, BillService) {
+
+        $scope.bills = BillService.query();
 
         // save user from data express spits out in template
 		UserService.storeUser(window.user);
-
-        // TODO this should be a service
-        $scope.getBills = function() {
-            $http.get('/bills').success(function(data) {
-                $scope.bills = data;
-            });
-        };
-
-        // if we do not have any bills in scope, fetch them
-        if (!$scope.bills || !$scope.bills.length) {
-            $scope.getBills();
-        }
 
         // testing $watch
 		$scope.$watch('bills', function(oldData, newData, scope){});
@@ -34,13 +24,17 @@ angular.module('billApp.controllers', [])
         };
 
         $scope.deleteRecord = function(recordId) {
-            $http.delete('/bills/' + $scope.bills[recordId]._id).success(function(data) {
+            /*$http.delete('/bills/' + $scope.bills[recordId]._id).success(function(data) {
+                $scope.remove($scope.bills, recordId);
+            });*/
+            $scope.test = BillService.delete({ billId: $scope.bills[recordId]._id }, function(test) {
+                //console.log('test', test);
                 $scope.remove($scope.bills, recordId);
             });
         };
 	}])
 
-	.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', 'UserService', function($scope, $http, $rootScope, $modal, UserService) {
+	.controller('NewBillCtrl', ['$scope', '$http', '$rootScope', 'UserService', function($scope, $http, $rootScope, UserService) {
 
 		$scope.formState = true;
 
@@ -48,6 +42,7 @@ angular.module('billApp.controllers', [])
 			$scope.formState = !$scope.formState;
 		};
 
+       console.log('UserService', UserService);
 		$scope.user = UserService.getUser();
 
 		$scope.SaveData = function() {

@@ -2,9 +2,10 @@
 
 /* Services */
 
-angular.module('billApp.services', [])
-	.factory('UserService', function() {
+angular.module('billApp.services', ['ngResource'])
+	.factory('UserService', ['$resource', function($resource) {
 		var storedUser;
+        console.log('UserService factory');
 		return {
 			storeUser: function(user) {
 				storedUser = user;
@@ -13,8 +14,9 @@ angular.module('billApp.services', [])
 				return storedUser;
 			}
 		}
-	})
-    .factory('Bills', ['$resource', function($resource) {
+	}])
+    .factory('BillService', ['$resource', function($resource) {
+        console.log('BillService factory');
         return $resource('/bills/:billId', { billId: '@id' }, {
             query: {
                 method: 'GET',
@@ -23,6 +25,10 @@ angular.module('billApp.services', [])
             },
             delete: {
                 method: 'DELETE',
+                params: {}
+            },
+            create: {
+                method: 'POST',
                 params: {}
             }
         });
